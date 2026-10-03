@@ -2,7 +2,7 @@
 
 /* ---------- Config & static UI data ---------- */
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = window.location.origin;
 
 const MAJORS = [
   "Computer Science",
