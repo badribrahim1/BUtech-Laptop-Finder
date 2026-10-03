@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BUtech Admin</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    BU
+                </div>
+
+                <div>
+                    <h1>BUtech</h1>
+                    <span>Admin Panel</span>
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <button class="nav-item active" type="button">
+                    <span>▦</span>
+                    Dashboard
+                </button>
+
+                <button class="nav-item" type="button">
+                    <span>💻</span>
+                    Inventory
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+                <span>BUtech Laptop Store</span>
+            </div>
+
+        </aside>
+
+
+        <!-- Main -->
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+
+                    <h2>Dashboard</h2>
+
+                    <p>
+                        Manage your laptop inventory
+                    </p>
+
+                </div>
+
+
+                <div class="admin-user">
+
+                    <div class="avatar">
+                        A
+                    </div>
+
+                    <div>
+
+                        <strong>Admin</strong>
+
+                        <span>
+                            BUtech
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Stats -->
+            <section class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💻
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Laptops
+                        </span>
+
+                        <strong id="totalLaptops">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Average Price
+                        </span>
+
+                        <strong id="avgPrice">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ↘
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Lowest Price
+                        </span>
+
+                        <strong id="minPrice">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ↗
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Highest Price
+                        </span>
+
+                        <strong id="maxPrice">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Inventory -->
+            <section class="inventory-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Laptop Inventory
+                        </h2>
+
+                        <p>
+                            Manage your available laptop models.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="add-btn"
+                        id="addLaptopBtn"
+                        type="button"
+                    >
+                        + Add Laptop
+                    </button>
+
+                </div>
+
+
+                <!-- Filters -->
+                <div class="filters">
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search laptop model..."
+                    >
+
+
+                    <select id="brandFilter">
+
+                        <option value="All">
+                            All Brands
+                        </option>
+
+                        <option value="Dell">
+                            Dell
+                        </option>
+
+                        <option value="HP">
+                            HP
+                        </option>
+
+                        <option value="Lenovo">
+                            Lenovo
+                        </option>
+
+                    </select>
+
+
+                    <select id="sortFilter">
+
+                        <option value="default">
+                            Sort
+                        </option>
+
+                        <option value="low">
+                            Price: Low → High
+                        </option>
+
+                        <option value="high">
+                            Price: High → Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Table -->
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Model
+                                </th>
+
+                                <th>
+                                    CPU
+                                </th>
+
+                                <th>
+                                    RAM
+                                </th>
+
+                                <th>
+                                    GPU
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="laptopTable">
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty"
+                                >
+                                    Loading inventory...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================
+         Add Laptop Modal
+    ========================== -->
+
+    <div
+        id="laptopModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Add Laptop
+                    </h2>
+
+                    <p>
+                        Add a new laptop model to your inventory.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeModalBtn"
+                    class="close-btn"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="laptopForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="laptopCode">
+                            Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="laptopCode"
+                            placeholder="Example: LAP101"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="laptopModel">
+                            Model
+                        </label>
+
+                        <input
+                            type="text"
+                            id="laptopModel"
+                            placeholder="Example: Dell Latitude 5440"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="laptopCpu">
+                            CPU
+                        </label>
+
+                        <input
+                            type="text"
+                            id="laptopCpu"
+                            placeholder="Example: i5-1335U"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="laptopRam">
+                            RAM (GB)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="laptopRam"
+                            min="1"
+                            placeholder="16"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="laptopGpu">
+                            GPU
+                        </label>
+
+                        <input
+                            type="text"
+                            id="laptopGpu"
+                            placeholder="Example: Iris Xe"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="laptopPrice">
+                            Price (EGP)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="laptopPrice"
+                            min="1"
+                            placeholder="25000"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        id="cancelModalBtn"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Add Laptop
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
