@@ -850,7 +850,32 @@ def get_use_case_summary(
         + matched_use_cases[-1]
     )
 
+def get_cpu_reason(cpu_score):
 
+    if cpu_score >= 90:
+        return "Strong CPU performance for general use"
+
+    if cpu_score >= 75:
+        return "Good CPU performance for general use"
+
+    if cpu_score >= 60:
+        return "Adequate CPU performance for general use"
+
+    return "Basic CPU performance for general use"
+
+
+def get_gpu_reason(gpu_score):
+
+    if gpu_score >= 90:
+        return "Strong GPU performance for general use"
+
+    if gpu_score >= 75:
+        return "Good GPU performance for general use"
+
+    if gpu_score >= 60:
+        return "Adequate GPU performance for general use"
+
+    return "Basic GPU performance for general use"
 def get_laptop_reasons(
     laptop,
     selected_software,
